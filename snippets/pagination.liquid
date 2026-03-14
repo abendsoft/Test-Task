@@ -9,6 +9,7 @@
   Accepts:
   - paginate: {Object}
   - anchor: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+  - show_labels: {Boolean} (optional) Show "Previous" and "Next" text next to arrows
 {% endcomment %}
 
 {{ 'component-pagination.css' | asset_url | stylesheet_tag }}
@@ -21,9 +22,10 @@
           <li>
             <a
               href="{{ paginate.previous.url }}{{ anchor }}"
-              class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce"
+              class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce{% if show_labels %} pagination__item--with-label{% endif %}"
               aria-label="{{ 'general.pagination.previous' | t }}"
             >
+              {%- if show_labels -%}<span class="pagination__label">{{ 'general.pagination.previous' | t }}</span>{%- endif -%}
               <span class="svg-wrapper">
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </span>
@@ -63,12 +65,13 @@
           <li>
             <a
               href="{{ paginate.next.url }}{{ anchor }}"
-              class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce"
+              class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce{% if show_labels %} pagination__item--with-label{% endif %}"
               aria-label="{{ 'general.pagination.next' | t }}"
             >
               <span class="svg-wrapper">
                 {{- 'icon-caret.svg' | inline_asset_content -}}
               </span>
+              {%- if show_labels -%}<span class="pagination__label">{{ 'general.pagination.next' | t }}</span>{%- endif -%}
             </a>
           </li>
         {%- endif -%}

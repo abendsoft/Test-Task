@@ -193,6 +193,7 @@
       "filter_and_sort": "Filter and sort",
       "filter_by_label": "Filter:",
       "filter_button": "Filter",
+      "filters_heading": "Filters",
       "filters_selected": {
         "one": "{{ count }} selected",
         "other": "{{ count }} selected"
@@ -210,6 +211,8 @@
         "other": "{{ count }} products"
       },
       "reset": "Reset",
+      "showing_range": "Showing {{ start }}-{{ end }} of {{ total }} Products",
+      "apply_filters": "Apply Filter",
       "sort_button": "Sort",
       "sort_by_label": "Sort by:",
       "to": "To",
