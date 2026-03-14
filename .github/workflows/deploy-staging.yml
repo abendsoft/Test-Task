@@ -1,6 +1,6 @@
 # Deploy to staging theme when pushing to staging branch
 # Store: test-task-development.myshopify.com
-# Create a duplicate theme in Shopify Admin for staging, then add its ID as SHOPIFY_STAGING_THEME_ID secret
+# Required secrets: SHOPIFY_CLI_THEME_TOKEN, SHOPIFY_FLAG_STORE, SHOPIFY_STAGING_THEME_ID (staging theme ID from Shopify Admin)
 
 name: Deploy to staging
 
@@ -17,6 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Check staging theme ID
+        run: |
+          if [ -z "${{ secrets.SHOPIFY_STAGING_THEME_ID }}" ]; then
+            echo "::error::SHOPIFY_STAGING_THEME_ID secret is not set. Create a duplicate theme in Shopify Admin (Online Store → Themes → Add theme → Duplicate), then add its theme ID as repository secret SHOPIFY_STAGING_THEME_ID."
+            exit 1
+          fi
+          echo "Staging theme ID is set."
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -30,6 +38,6 @@ jobs:
         env:
           SHOPIFY_CLI_THEME_TOKEN: ${{ secrets.SHOPIFY_CLI_THEME_TOKEN }}
           SHOPIFY_FLAG_STORE: ${{ secrets.SHOPIFY_FLAG_STORE }}
-          SHOPIFY_FLAG_THEME: ${{ secrets.SHOPIFY_STAGING_THEME_ID }}
+          SHOPIFY_FLAG_THEME_ID: ${{ secrets.SHOPIFY_STAGING_THEME_ID }}
           SHOPIFY_FLAG_FORCE: "1"
-        run: shopify theme push --force --theme "$SHOPIFY_FLAG_THEME"
+        run: shopify theme push --force --theme "$SHOPIFY_FLAG_THEME_ID"
