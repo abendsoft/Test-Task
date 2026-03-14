@@ -1,0 +1,15 @@
+# Shopify CLI theme configuration
+# Used for: shopify theme dev, shopify theme push, and CI/CD pipeline
+# Replace theme id and store with your development store values
+
+[environments.development]
+# Get theme ID from: Shopify Admin > Online Store > Themes > Development (or create one)
+# theme = "123456789012"
+# Your development store myshopify.com subdomain (e.g. my-dev-store)
+store = ""
+
+# Optional: set when using theme push in CI (use secrets, do not commit real tokens)
+# password = "shptka_..."
+
+[environments.default]
+store = ""
