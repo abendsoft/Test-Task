@@ -15,7 +15,7 @@ The theme is responsive and works on mobile; layout and components follow Dawn�
 
 1. **Clone and open the repo**
    ```bash
-   git clone https://github.com/abendtalhasaleem-lang/Test-Task.git
+   git clone https://github.com/abendsoft/Test-Task.git
    cd Test-Task
    ```
 
@@ -68,7 +68,7 @@ So: **filters are driven by Shopify’s Search & Discovery app**; the theme just
 
 ## Repo and license
 
-- **GitHub:** [abendtalhasaleem-lang/Test-Task](https://github.com/abendtalhasaleem-lang/Test-Task.git)
+- **GitHub:** [abendsoft/Test-Task](https://github.com/abendsoft/Test-Task.git)
 - Dawn is licensed under the MIT License; any customisations in this repo follow the same unless stated otherwise.
 
 If you hit issues, check that the development store has Search & Discovery set up and that Theme Access (and the token in GitHub secrets) is correct for the store you’re pushing to.
