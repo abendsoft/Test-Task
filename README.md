@@ -11,6 +11,20 @@ This repo is a customisation of the **Dawn** theme for Shopify. It’s set up so
 
 The theme is responsive and works on mobile; layout and components follow Dawn’s existing breakpoints and patterns.
 
+## Branching: main and staging
+
+- **`main`** — production. Deploys to the store’s main theme (ID: `187032699252`) at [test-task-development.myshopify.com](https://test-task-development.myshopify.com/).
+- **`staging`** — staging. Use this for testing before merging into `main`. Deploys to a separate staging theme (you set its ID in GitHub secrets).
+
+**Workflow:**
+
+1. Pull latest from `main`: `git checkout main && git pull`
+2. Create or switch to `staging`: `git checkout staging` (or `git checkout -b staging` to create it from `main`)
+3. Do your work on `staging`, commit and push. The pipeline deploys to the staging theme.
+4. When ready, merge into `main`: e.g. open a Pull Request from `staging` → `main`, then merge. Pushing to `main` deploys to the production theme.
+
+So: **develop on staging, then merge staging into main** when you’re happy with the changes.
+
 ## Local development
 
 1. **Clone and open the repo**
@@ -40,22 +54,24 @@ The theme is responsive and works on mobile; layout and components follow Dawn�
 
 ## Deploying with the pipeline (GitHub Actions)
 
-The workflow in `.github/workflows/deploy-theme.yml` pushes this theme to your Shopify store when you push to the `main` branch (or when you run the workflow manually).
+- **Push to `main`** → workflow **Deploy to main (production)** pushes to theme `187032699252` on `test-task-development.myshopify.com`.
+- **Push to `staging`** → workflow **Deploy to staging** pushes to your staging theme (using the theme ID in the `SHOPIFY_STAGING_THEME_ID` secret).
 
 **Setup:**
 
 1. **Theme Access password**  
-   In your Shopify admin, install the Theme Access app, create a theme access password, and copy it.
+   In your Shopify admin, install the [Theme Access](https://apps.shopify.com/theme-access) app, create a theme access password, and copy it.
 
 2. **GitHub secrets**  
    In the repo: **Settings → Secrets and variables → Actions**, add:
    - `SHOPIFY_CLI_THEME_TOKEN` — the Theme Access password from step 1.
-   - `SHOPIFY_FLAG_STORE` — your store’s myshopify.com hostname (e.g. `my-dev-store` for `my-dev-store.myshopify.com`).
+   - `SHOPIFY_FLAG_STORE` — `test-task-development` (your store’s myshopify.com subdomain).
+   - `SHOPIFY_STAGING_THEME_ID` — theme ID of your **staging** theme. In Shopify Admin go to **Online Store → Themes**, duplicate the main theme, name it e.g. “Staging”, and copy its theme ID from the URL or theme options.
 
-3. **Push to `main`**  
-   Pushing to `main` runs the workflow and runs `shopify theme push` with those secrets. The first run will create or update the theme linked to the CLI; you can also pass a theme ID in the workflow if you want to target a specific theme.
+3. **Branches**  
+   Pushing to `main` deploys to the production theme. Pushing to `staging` deploys to the staging theme.
 
-If you prefer not to use GitHub Actions, you can run `shopify theme push` locally or from another CI system using the same env vars (`SHOPIFY_CLI_THEME_TOKEN`, `SHOPIFY_FLAG_STORE`, and optionally `SHOPIFY_FLAG_FORCE=1`).
+If you prefer not to use GitHub Actions, you can run `shopify theme push` locally with the same env vars and `--theme <id>` for the theme you want to update.
 
 ## Search & Discovery (filters)
 

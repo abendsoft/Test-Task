@@ -1,3 +1,5 @@
+// Collection and search filter UI — custom elements used by the facets snippet.
+// Works with Shopify’s Storefront API filter data (from Search & Discovery).
 class FacetFiltersForm extends HTMLElement {
   constructor() {
     super();
