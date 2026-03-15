@@ -10,6 +10,17 @@
 {%- if collection == blank -%}
   <div style="padding: 2rem; text-align: center; color: #6b7280;">Add this section to a collection page to display products and filters.</div>
 {%- else -%}
+<script>
+(function() {
+  try {
+    var nav = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+    if (nav && nav.type === 'reload' && window.location.search) {
+      var cleanUrl = {{ collection.url | json }};
+      if (cleanUrl) window.location.replace(cleanUrl);
+    }
+  } catch (e) {}
+})();
+</script>
 {%- paginate collection.products by section.settings.products_per_page -%}
   {%- assign heading_text = section.settings.heading | default: collection.title -%}
   {%- assign start_item = paginate.current_offset | plus: 1 -%}

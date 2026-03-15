@@ -6,6 +6,12 @@
 
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
 
+.cfg-collection-grid *,
+.cfg-collection-grid *::before,
+.cfg-collection-grid *::after {
+  box-sizing: border-box;
+}
+
 .cfg-collection-grid {
   font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
   max-width: 1400px;
@@ -15,6 +21,10 @@
   grid-template-columns: 280px 1fr;
   gap: 32px;
   min-height: 400px;
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  overflow-x: hidden;
 }
 
 /* Sidebar — white background per reference */
@@ -316,6 +326,7 @@
 /* Main content */
 .cfg-main {
   min-width: 0;
+  overflow: hidden;
 }
 
 .cfg-header-row {
@@ -396,12 +407,19 @@
   list-style: none;
   margin: 0;
   padding: 0;
+  min-width: 0;
+}
+
+.cfg-product-grid li {
+  min-width: 0;
 }
 
 .cfg-product-card {
   display: block;
   text-decoration: none;
   color: inherit;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .cfg-product-image {
@@ -412,7 +430,9 @@
 .cfg-product-image img {
   width: 100%;
   height: 100%;
+  max-width: 100%;
   object-fit: cover;
+  display: block;
 }
 
 .cfg-product-title {
@@ -551,6 +571,71 @@
   .cfg-product-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
+    min-width: 0;
+  }
+}
+
+/* Small screens — fix layout overflow below 400px */
+@media (max-width: 399px) {
+  .cfg-collection-grid {
+    padding: 12px 10px;
+  }
+
+  .cfg-product-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    min-width: 0;
+  }
+
+  .cfg-header-row {
+    gap: 8px;
+  }
+
+  .cfg-title {
+    font-size: 18px;
+  }
+
+  .cfg-header-meta {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .cfg-count {
+    font-size: 12px;
+  }
+
+  .cfg-sort {
+    width: 100%;
+  }
+
+  .cfg-sort select {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .cfg-product-card,
+  .cfg-product-image,
+  .cfg-product-image img {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .cfg-product-title {
+    font-size: 13px;
+    white-space: normal;
+  }
+
+  .cfg-pagination {
+    gap: 8px;
+  }
+
+  .cfg-pagination a,
+  .cfg-pagination span {
+    min-width: 36px;
+    height: 36px;
+    padding: 0 8px;
+    font-size: 13px;
   }
 }
 
@@ -620,6 +705,17 @@
   .cfg-filter-values.cfg-filter--swatch {
     gap: 6px;
     grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (max-width: 399px) {
+  .cfg-sidebar .cfg-filters-form {
+    padding: 0 16px 20px;
+  }
+
+  .cfg-filter-values.cfg-filter--swatch {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
   }
 }
 
