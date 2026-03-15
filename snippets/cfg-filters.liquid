@@ -63,6 +63,12 @@
                 {% if filter.presentation == 'swatch' %}{% assign use_swatches = true %}{% endif %}
                 <ul class="cfg-filter-values {% if use_swatches %}cfg-filter--swatch{% else %}cfg-filter--pill{% endif %}">
                   {%- for value in filter.values -%}
+                    {%- comment -%} For color swatches, only show values that have products or are currently selected {%- endcomment -%}
+                    {%- assign show_swatch = true -%}
+                    {%- if use_swatches and value.count == 0 and value.active == false -%}
+                      {%- assign show_swatch = false -%}
+                    {%- endif -%}
+                    {%- if show_swatch -%}
                     {% assign disabled = false %}
                     {%- if value.count == 0 and value.active == false -%}
                       {% assign disabled = true %}
@@ -106,10 +112,11 @@
                         <label class="cfg-pill">
                           <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
                             {% if value.active %}checked{% endif %}{% if disabled %} disabled{% endif %}>
-                          <span>{{ value.label }} ({{ value.count }})</span>
+                          <span>{{ value.label }}</span>
                         </label>
                       {%- endif -%}
                     </li>
+                    {%- endif -%}
                   {%- endfor -%}
                 </ul>
             {% endcase %}
