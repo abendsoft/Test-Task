@@ -38,10 +38,10 @@
         if (minDisplay) minDisplay.textContent = '$' + formatMoney(minVal);
         if (maxDisplay) maxDisplay.textContent = '$' + formatMoney(maxVal);
         if (fillEl && rangeMax > 0) {
-          var left = (minVal / rangeMax) * 100;
-          var width = ((maxVal - minVal) / rangeMax) * 100;
-          fillEl.style.left = left + '%';
-          fillEl.style.width = width + '%';
+          var leftPct = (minVal / rangeMax) * 100;
+          var widthPct = ((maxVal - minVal) / rangeMax) * 100;
+          fillEl.style.left = leftPct + '%';
+          fillEl.style.width = Math.max(widthPct, 1) + '%';
         }
       }
 

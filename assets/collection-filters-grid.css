@@ -95,11 +95,23 @@
   height: 24px;
 }
 
+.cfg-price-slider-track::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 10px;
+  height: 4px;
+  background: #e5e5e5;
+  border-radius: 2px;
+  z-index: 0;
+}
+
 .cfg-price-slider-fill {
   position: absolute;
   left: 0;
   width: 100%;
-  top: 12px;
+  top: 10px;
   height: 4px;
   background: #000;
   border-radius: 2px;
@@ -110,21 +122,20 @@
 .cfg-price-slider {
   position: absolute;
   width: 100%;
-  height: 4px;
+  height: 24px;
   margin: 0;
   padding: 0;
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
-  pointer-events: none;
-  top: 12px;
+  top: 0;
+  left: 0;
   z-index: 2;
 }
 
 .cfg-price-slider::-webkit-slider-runnable-track {
-  height: 4px;
-  background: #e5e5e5;
-  border-radius: 2px;
+  height: 24px;
+  background: transparent;
 }
 
 .cfg-price-slider::-webkit-slider-thumb {
@@ -134,15 +145,13 @@
   border-radius: 50%;
   background: #000;
   cursor: pointer;
-  pointer-events: auto;
   border: none;
-  margin-top: -5px;
+  margin-top: 5px;
 }
 
 .cfg-price-slider::-moz-range-track {
-  height: 4px;
-  background: #e5e5e5;
-  border-radius: 2px;
+  height: 24px;
+  background: transparent;
 }
 
 .cfg-price-slider::-moz-range-thumb {
@@ -151,7 +160,6 @@
   border-radius: 50%;
   background: #000;
   cursor: pointer;
-  pointer-events: auto;
   border: none;
 }
 
@@ -187,11 +195,13 @@
 
 .cfg-swatch input {
   position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  cursor: pointer;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 .cfg-swatch-circle {
@@ -243,6 +253,7 @@
 .cfg-pill {
   display: inline-flex;
   align-items: center;
+  position: relative;
   padding: 8px 16px;
   border-radius: 999px;
   font-size: 14px;
@@ -256,17 +267,23 @@
 
 .cfg-pill input {
   position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  cursor: pointer;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
 }
 
 .cfg-filter-value--active .cfg-pill,
 .cfg-pill:has(input:checked) {
   background: #000;
   color: #fff;
+}
+
+.cfg-filter-value--disabled {
+  pointer-events: none;
 }
 
 .cfg-filter-value--disabled .cfg-pill {
@@ -446,7 +463,7 @@
 .cfg-pagination {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   gap: 16px;
   flex-wrap: wrap;
 }
