@@ -195,17 +195,14 @@
 
 .cfg-swatch input {
   position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  opacity: 0;
+  top: 0;
+  left: 0;
   cursor: pointer;
-  z-index: 2;
-  pointer-events: auto;
-  appearance: none;
-  -webkit-appearance: none;
+  opacity: 0;
 }
 
 .cfg-swatch-circle {
@@ -271,17 +268,14 @@
 
 .cfg-pill input {
   position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
-  opacity: 0;
+  top: 0;
+  left: 0;
   cursor: pointer;
-  z-index: 2;
-  pointer-events: auto;
-  appearance: none;
-  -webkit-appearance: none;
+  opacity: 0;
 }
 
 .cfg-filter-value--active .cfg-pill,
@@ -299,28 +293,10 @@
   cursor: not-allowed;
 }
 
-/* Filter actions: Clear + Apply */
-.cfg-filter-actions {
-  margin-top: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.cfg-clear-filters {
-  font-size: 14px;
-  color: #6b7280;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-}
-
-.cfg-clear-filters:hover {
-  color: #000;
-}
-
 /* Apply Filter — black button */
 .cfg-apply-btn {
   width: 100%;
+  margin-top: 24px;
   padding: 16px 24px;
   font-size: 14px;
   font-weight: 600;

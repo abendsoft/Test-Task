@@ -84,25 +84,10 @@
     }
   }
 
-  function initFilterOptions() {
-    var form = document.getElementById('cfg-filter-form');
-    if (!form) return;
-
-    form.addEventListener('click', function(e) {
-      var label = e.target.closest('.cfg-swatch, .cfg-pill');
-      if (!label) return;
-      var cb = label.querySelector('input[type="checkbox"]');
-      if (!cb || cb.disabled) return;
-      e.preventDefault();
-      cb.checked = !cb.checked;
-    });
-  }
-
   function init() {
     initPriceSliders();
     initMobileFilters();
     initSortSelect();
-    initFilterOptions();
   }
 
   if (document.readyState === 'loading') {
