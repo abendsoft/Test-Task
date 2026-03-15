@@ -1,9 +1,10 @@
 {% comment %}
-  Independent filter form for collection-filters-grid section.
+  Filter form for Collection Filters Grid section.
+  Renders Price (From/To + value pill) and list filters (Color, Size as pills with optional swatch).
   Uses Search & Discovery filters. Form submits via GET.
 {% endcomment %}
+
 {%- liquid
-  assign sort_by = collection.sort_by | default: collection.default_sort_by
   if collection.url
     assign form_action = collection.url
   else
@@ -16,7 +17,7 @@
     <input type="hidden" name="q" value="{{ collection.terms | escape }}">
   {%- endif -%}
 
-  <div class="cfg-filters-sidebar">
+  <div class="cfg-filters-inner">
     <div class="cfg-filters-header">
       <h2 class="cfg-filters-title">Filters</h2>
       <span class="cfg-filters-icon" aria-hidden="true">
@@ -32,23 +33,25 @@
         <details class="cfg-filter-details" open>
           <summary class="cfg-filter-summary">
             <span class="cfg-filter-label">{{ filter.label }}</span>
-            <svg class="cfg-filter-caret" width="10" height="6" viewBox="0 0 10 6" fill="none"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2"/></svg>
+            <svg class="cfg-filter-caret" width="10" height="6" viewBox="0 0 10 6" fill="none" aria-hidden="true"><path d="M1 1L5 5L9 1" stroke="currentColor" stroke-width="2"/></svg>
           </summary>
           <div class="cfg-filter-content">
             {% case filter.type %}
               {% when 'price_range' %}
                 <div class="cfg-price-range">
-                  <label for="cfg-price-min">{{ 'products.facets.from' | t }}</label>
-                  <input type="number" name="{{ filter.min_value.param_name }}" id="cfg-price-min"
+                  <label for="cfg-price-min-{{ forloop.index }}">From</label>
+                  <input type="number" name="{{ filter.min_value.param_name }}" id="cfg-price-min-{{ forloop.index }}"
                     value="{{ filter.min_value.value | money_without_currency }}"
                     min="0" max="{{ filter.range_max | money_without_currency }}"
                     placeholder="0" step="1">
-                  <label for="cfg-price-max">{{ 'products.facets.to' | t }}</label>
-                  <input type="number" name="{{ filter.max_value.param_name }}" id="cfg-price-max"
+                  <label for="cfg-price-max-{{ forloop.index }}">To</label>
+                  <input type="number" name="{{ filter.max_value.param_name }}" id="cfg-price-max-{{ forloop.index }}"
                     value="{{ filter.max_value.value | money_without_currency }}"
                     min="0" max="{{ filter.range_max | money_without_currency }}"
                     placeholder="{{ filter.range_max | money_without_currency }}" step="1">
                 </div>
+                {%- assign display_max = filter.max_value.value | default: filter.range_max -%}
+                <div class="cfg-price-pill">{{ display_max | money_without_currency }}</div>
               {% when 'list', 'boolean' %}
                 {% assign presentation = filter.presentation | default: 'text' %}
                 <ul class="cfg-filter-values cfg-filter--{{ presentation }}">
@@ -58,19 +61,14 @@
                       {% assign disabled = true %}
                     {%- endif -%}
                     <li class="cfg-filter-value{% if value.active %} cfg-filter-value--active{% endif %}{% if disabled %} cfg-filter-value--disabled{% endif %}">
-                      {%- if presentation == 'swatch' -%}
-                        <label class="cfg-swatch">
-                          <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
-                            {% if value.active %}checked{% endif %}{% if disabled %} disabled{% endif %}>
-                          <span class="cfg-swatch-circle" style="{% if value.swatch and value.swatch.color %}background-color:{{ value.swatch.color }};{% endif %}"></span>
-                        </label>
-                      {%- else -%}
-                        <label class="cfg-pill">
-                          <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
-                            {% if value.active %}checked{% endif %}{% if disabled %} disabled{% endif %}>
-                          <span>{{ value.label }} ({{ value.count }})</span>
-                        </label>
-                      {%- endif -%}
+                      <label class="cfg-pill{% if presentation == 'swatch' %} cfg-pill--swatch{% endif %}">
+                        <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
+                          {% if value.active %}checked{% endif %}{% if disabled %} disabled{% endif %}>
+                        {%- if presentation == 'swatch' and value.swatch and value.swatch.color -%}
+                          <span class="cfg-pill-swatch" style="background-color: {{ value.swatch.color }};"></span>
+                        {%- endif -%}
+                        <span class="cfg-pill-label">{{ value.label }} ({{ value.count }})</span>
+                      </label>
                     </li>
                   {%- endfor -%}
                 </ul>

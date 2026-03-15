@@ -1,8 +1,12 @@
 /**
- * Collection Filters Grid - Independent design
- * Self-contained styles, no theme dependency
+ * Collection Filters Grid — Custom design
+ * No theme CSS dependency. Matches reference layout.
+ * Font: Satoshi (Fontshare)
  */
+
 @import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&display=swap');
+
+/* ---- Layout ---- */
 
 .cfg-collection-grid {
   font-family: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -15,14 +19,19 @@
   min-height: 400px;
 }
 
-/* Sidebar */
+/* ---- Sidebar (light gray, rounded) ---- */
+
 .cfg-sidebar {
-  border: 1px solid #e5e5e5;
-  border-radius: 8px;
+  background: #f5f5f5;
+  border-radius: 12px;
   padding: 24px;
   height: fit-content;
   position: sticky;
   top: 24px;
+}
+
+.cfg-filters-inner {
+  /* Contains header, filter groups, apply button */
 }
 
 .cfg-filters-header {
@@ -33,18 +42,21 @@
 }
 
 .cfg-filters-title {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
+  color: #000;
   margin: 0;
 }
 
 .cfg-filters-icon {
   display: flex;
+  color: #000;
 }
 
+/* Divider between filter groups */
 .cfg-filter-divider {
   height: 1px;
-  background: #e5e5e5;
+  background: #e0e0e0;
   margin: 16px 0;
 }
 
@@ -57,30 +69,40 @@
   align-items: center;
   justify-content: space-between;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 700;
+  color: #000;
   padding: 4px 0;
+  list-style: none;
+}
+
+.cfg-filter-summary::-webkit-details-marker {
+  display: none;
 }
 
 .cfg-filter-caret {
   flex-shrink: 0;
+  color: #666;
 }
 
 .cfg-filter-content {
   padding: 12px 0 0;
 }
 
-/* Price range */
+/* ---- Price filter ---- */
+
 .cfg-price-range {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
+  gap: 8px 12px;
   align-items: center;
+  margin-bottom: 12px;
 }
 
 .cfg-price-range label {
   font-size: 14px;
   font-weight: 400;
+  color: #333;
 }
 
 .cfg-price-range input {
@@ -89,112 +111,108 @@
   border: 1px solid #d1d5db;
   border-radius: 6px;
   font-size: 14px;
+  font-family: inherit;
+  background: #fff;
 }
 
-/* Swatches - 5 per row, round */
-.cfg-filter-values.cfg-filter--swatch {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
-}
-
-.cfg-swatch {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-}
-
-.cfg-swatch input {
-  position: absolute;
-  opacity: 0;
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  margin: 0;
-}
-
-.cfg-swatch-circle {
-  display: block;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid #e5e5e5;
-  background: #f5f5f5;
-  position: relative;
-}
-
-.cfg-swatch {
-  position: relative;
-}
-
-.cfg-swatch input:checked + .cfg-swatch-circle {
-  border-color: #000;
-  border-width: 2px;
-}
-
-.cfg-swatch input:checked + .cfg-swatch-circle::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 10px;
-  height: 6px;
-  border-left: 2px solid #fff;
-  border-bottom: 2px solid #fff;
-  transform: translate(-50%, -60%) rotate(-45deg);
-  filter: drop-shadow(0 0 1px #000);
-}
-
-/* Pills */
-.cfg-filter-values:not(.cfg-filter--swatch) {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.cfg-pill {
+.cfg-price-pill {
   display: inline-block;
   padding: 8px 16px;
   border-radius: 999px;
   font-size: 14px;
+  font-weight: 500;
+  background: #e8e8e8;
+  color: #333;
+  margin-top: 4px;
+}
+
+/* ---- Color / Size pills (label + optional swatch) ---- */
+
+.cfg-filter-values {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.cfg-filter-value {
+  margin: 0;
+}
+
+.cfg-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  font-size: 14px;
   font-weight: 400;
-  background: #f3f4f6;
-  border: 1px solid #e5e7eb;
+  background: #e8e8e8;
+  border: 1px solid #ddd;
+  color: #000;
   cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.cfg-pill:hover:not(:has(input:disabled)) {
+  background: #ddd;
 }
 
 .cfg-pill input {
-  display: none;
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
 }
 
-.cfg-pill:has(input:checked),
-.cfg-filter-value--active .cfg-pill {
-  background: #000 !important;
-  color: #fff !important;
-  border-color: #000 !important;
+.cfg-pill-swatch {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(0, 0, 0, 0.15);
 }
+
+.cfg-pill-label {
+  /* Text next to swatch or alone */
+}
+
+.cfg-filter-value--active .cfg-pill,
+.cfg-pill:has(input:checked) {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.cfg-filter-value--disabled .cfg-pill {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* ---- Apply Filter button ---- */
 
 .cfg-apply-btn {
   width: 100%;
   margin-top: 24px;
   padding: 12px 24px;
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 600;
   font-family: inherit;
   background: #000;
   color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background 0.15s;
 }
 
 .cfg-apply-btn:hover {
   background: #333;
 }
 
-/* Main content */
+/* ---- Main content area ---- */
+
 .cfg-main {
   min-width: 0;
 }
@@ -208,9 +226,16 @@
   margin-bottom: 24px;
 }
 
+.cfg-heading-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .cfg-title {
   font-size: 32px;
   font-weight: 700;
+  color: #000;
   margin: 0;
 }
 
@@ -222,7 +247,7 @@
 
 .cfg-count {
   font-size: 14px;
-  color: #6b7280;
+  color: #333;
 }
 
 .cfg-sort {
@@ -233,19 +258,23 @@
 
 .cfg-sort label {
   font-size: 14px;
+  color: #333;
 }
 
 .cfg-sort select {
   font-size: 14px;
-  font-weight: 700;
+  font-weight: 500;
   padding: 8px 32px 8px 12px;
   border: 1px solid #d1d5db;
   border-radius: 6px;
   background: #fff;
   cursor: pointer;
+  font-family: inherit;
+  color: #000;
 }
 
-/* Product grid - 3 cols */
+/* ---- Product grid (3 columns) ---- */
+
 .cfg-product-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -278,6 +307,7 @@
 .cfg-product-title {
   font-size: 14px;
   font-weight: 500;
+  color: #000;
   margin: 0 0 4px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -287,6 +317,7 @@
 .cfg-product-price {
   font-size: 14px;
   font-weight: 700;
+  color: #000;
 }
 
 .cfg-product-price s {
@@ -304,7 +335,17 @@
   margin-left: 8px;
 }
 
-/* Pagination */
+/* ---- Empty state ---- */
+
+.cfg-empty {
+  padding: 48px 0;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+/* ---- Pagination ---- */
+
 .cfg-pagination-wrap {
   border-top: 1px solid #e5e5e5;
   margin-top: 40px;
@@ -344,7 +385,8 @@
   border-color: #d1d5db;
 }
 
-/* Mobile - 2 cols, slide-up filter */
+/* ---- Mobile: 2 columns, slide-up filter drawer ---- */
+
 @media (max-width: 989px) {
   .cfg-collection-grid {
     grid-template-columns: 1fr;
@@ -360,7 +402,7 @@
     max-height: 85vh;
     overflow-y: auto;
     border-radius: 16px 16px 0 0;
-    box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     transform: translateY(100%);
     transition: transform 0.3s ease;
@@ -369,8 +411,6 @@
   .cfg-sidebar.cfg-sidebar--open {
     transform: translateY(0);
   }
-
-  .cfg-sidebar {
 
   .cfg-product-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -398,23 +438,6 @@
     border: 1px solid #e5e5e5;
     border-radius: 6px;
     cursor: pointer;
+    color: #000;
   }
-
-  .cfg-heading-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-}
-
-/* Hide filter values text for swatch (show only circle) */
-.cfg-filter-value--disabled {
-  opacity: 0.5;
-  pointer-events: none;
-}
-
-.cfg-empty {
-  padding: 48px 0;
-  text-align: center;
-  color: #6b7280;
 }
