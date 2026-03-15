@@ -82,7 +82,7 @@
   padding: 12px 0 0;
 }
 
-/* Price — dual range slider (reference: thin grey track, solid black circular handles) */
+/* Price — dual range slider (reference: thin grey track, black fill between thumbs, bullseye handles) */
 .cfg-price-slider-wrap {
   position: relative;
   padding: 8px 0 20px;
@@ -91,6 +91,18 @@
 .cfg-price-slider-track {
   position: relative;
   height: 28px;
+}
+
+.cfg-price-slider-fill {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: 12px;
+  height: 4px;
+  background: #000;
+  border-radius: 2px;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .cfg-price-slider {
@@ -104,6 +116,7 @@
   background: transparent;
   pointer-events: none;
   top: 12px;
+  z-index: 2;
 }
 
 .cfg-price-slider::-webkit-slider-runnable-track {
@@ -114,14 +127,15 @@
 
 .cfg-price-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #000;
+  box-shadow: inset 0 0 0 4px #fff;
   cursor: pointer;
   pointer-events: auto;
   border: none;
-  margin-top: -5px;
+  margin-top: -6px;
 }
 
 .cfg-price-slider::-moz-range-track {
@@ -131,10 +145,11 @@
 }
 
 .cfg-price-slider::-moz-range-thumb {
-  width: 14px;
-  height: 14px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
   background: #000;
+  box-shadow: inset 0 0 0 4px #fff;
   cursor: pointer;
   pointer-events: auto;
   border: none;
@@ -149,11 +164,11 @@
   color: #000;
 }
 
-/* Color swatches — circular, grid, checkmark when selected */
+/* Color swatches — circular, grid, tighter spacing per reference */
 .cfg-filter-values.cfg-filter--swatch {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  gap: 12px;
+  gap: 6px;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -296,7 +311,15 @@
 .cfg-heading-row {
   display: flex;
   align-items: center;
+  justify-content: space-between;
   gap: 12px;
+}
+
+.cfg-header-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
 }
 
 .cfg-title {
@@ -360,20 +383,10 @@
   display: block;
   text-decoration: none;
   color: inherit;
-  background: #f5f5f5;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  transition: box-shadow 0.2s;
-}
-
-.cfg-product-card:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .cfg-product-image {
   aspect-ratio: 1;
-  background: #e8e8e8;
   overflow: hidden;
 }
 
@@ -469,11 +482,97 @@
   border-color: #d1d5db;
 }
 
-/* Mobile — 2-column grid, slide-up filter modal */
+/* Mobile — header: row 1 = collection name + filter icon, row 2 = count + sort */
 @media (max-width: 989px) {
   .cfg-collection-grid {
     grid-template-columns: 1fr;
     padding: 16px;
+  }
+
+  .cfg-header-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-bottom: 16px;
+  }
+
+  .cfg-heading-row {
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cfg-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  .cfg-header-meta {
+    width: 100%;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .cfg-count {
+    font-size: 13px;
+    color: #6b7280;
+  }
+
+  .cfg-sort label {
+    font-size: 13px;
+  }
+
+  .cfg-sort select {
+    font-size: 13px;
+  }
+
+  .cfg-product-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+/* Mobile — filter popup (slide-up modal, reference layout) */
+@media (max-width: 989px) {
+  .cfg-sidebar-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 20px 16px;
+    border-bottom: 1px solid #e5e5e5;
+    flex-shrink: 0;
+  }
+
+  .cfg-sidebar .cfg-filters-form .cfg-filters-header {
+    display: none;
+  }
+
+  .cfg-sidebar-mobile-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #000;
+    margin: 0;
+  }
+
+  .cfg-mobile-filter-close {
+    display: flex !important;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #000;
+  }
+
+  .cfg-mobile-filter-close svg {
+    width: 20px;
+    height: 20px;
   }
 
   .cfg-sidebar {
@@ -495,32 +594,13 @@
     transform: translateY(0);
   }
 
-  .cfg-mobile-filter-close {
-    display: flex !important;
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    width: 40px;
-    height: 40px;
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 28px;
-    line-height: 1;
-    color: #000;
-    z-index: 1;
+  .cfg-sidebar .cfg-filters-form {
+    padding: 0 20px 24px;
   }
 
-  .cfg-product-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .cfg-title {
-    font-size: 24px;
+  .cfg-filter-values.cfg-filter--swatch {
+    gap: 6px;
+    grid-template-columns: repeat(5, 1fr);
   }
 }
 
@@ -543,7 +623,7 @@
 @media (min-width: 990px) {
   .cfg-mobile-backdrop,
   .cfg-mobile-filter-btn,
-  .cfg-mobile-filter-close {
+  .cfg-sidebar-mobile-header {
     display: none !important;
   }
 }

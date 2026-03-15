@@ -20,6 +20,8 @@
 
       if (!minInput || !maxInput || !minHidden || !maxHidden) return;
 
+      var fillEl = wrap.querySelector('.cfg-price-slider-fill');
+
       function updateValues() {
         var minVal = parseInt(minInput.value, 10);
         var maxVal = parseInt(maxInput.value, 10);
@@ -34,6 +36,12 @@
         maxHidden.value = maxVal < rangeMax ? maxVal : '';
         if (minDisplay) minDisplay.textContent = '$' + formatMoney(minVal);
         if (maxDisplay) maxDisplay.textContent = '$' + formatMoney(maxVal);
+        if (fillEl && rangeMax > 0) {
+          var left = (minVal / rangeMax) * 100;
+          var width = ((maxVal - minVal) / rangeMax) * 100;
+          fillEl.style.left = left + '%';
+          fillEl.style.width = width + '%';
+        }
       }
 
       minInput.addEventListener('input', updateValues);

@@ -46,6 +46,7 @@
                 {%- assign max_val = filter.max_value.value | default: filter.range_max | divided_by: 100.0 -%}
                 <div class="cfg-price-slider-wrap" data-range-max="{{ filter.range_max }}" data-param-min="{{ filter.min_value.param_name }}" data-param-max="{{ filter.max_value.param_name }}">
                   <div class="cfg-price-slider-track">
+                    <span class="cfg-price-slider-fill" aria-hidden="true"></span>
                     <input type="range" class="cfg-price-slider cfg-price-slider-min" min="0" max="{{ filter.range_max }}" value="{{ filter.min_value.value | default: 0 }}" step="100">
                     <input type="range" class="cfg-price-slider cfg-price-slider-max" min="0" max="{{ filter.range_max }}" value="{{ filter.max_value.value | default: filter.range_max }}" step="100">
                   </div>
