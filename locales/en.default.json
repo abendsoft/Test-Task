@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin language editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "general": {
     "password_page": {
@@ -193,6 +202,7 @@
       "filter_and_sort": "Filter and sort",
       "filter_by_label": "Filter:",
       "filter_button": "Filter",
+      "filters_heading": "Filters",
       "filters_selected": {
         "one": "{{ count }} selected",
         "other": "{{ count }} selected"
@@ -210,6 +220,8 @@
         "other": "{{ count }} products"
       },
       "reset": "Reset",
+      "showing_range": "Showing {{ start }}-{{ end }} of {{ total }} Products",
+      "apply_filters": "Apply Filter",
       "sort_button": "Sort",
       "sort_by_label": "Sort by:",
       "to": "To",

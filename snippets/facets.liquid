@@ -7,6 +7,9 @@
   - enable_sorting: {Boolean} Show sorting when true
   - filter_type: {String} Type of filter
   - paginate: {Object}
+  - accordions_open_all: {Boolean} Keep all filter accordions open (optional)
+  - facets_layout: {String} 'collection_grid' for custom layout with Filters header and Apply button (optional)
+  - section_id: {String} Section ID for mobile filter trigger (optional)
 
   Usage:
   {% render 'facets', results: collection, enable_filtering: true, enable_sorting: true, filter_type: 'vertical', paginate: paginate %}
@@ -56,8 +59,15 @@
             {% comment %} Pills are right below the title for filter type vertical {% endcomment %}
             {%- if filter_type == 'vertical' -%}
               <div class="active-facets active-facets-desktop">
-                <div class="active-facets-vertical-filter">
-                  {%- unless results.filters == empty -%}
+                <div class="active-facets-vertical-filter{% if facets_layout == 'collection_grid' %} cpfg-filter-header-block{% endif %}">
+                  {%- if facets_layout == 'collection_grid' and results.filters != empty -%}
+                    <div class="filter-header-row">
+                      <h2 class="filter-heading" id="verticalTitle" tabindex="-1">{{ 'products.facets.filters_heading' | t }}</h2>
+                      <span class="filter-icon svg-wrapper">
+                        {{- 'icon-filter.svg' | inline_asset_content -}}
+                      </span>
+                    </div>
+                  {%- elsif results.filters != empty -%}
                     <h2
                       class="facets__heading facets__heading--vertical caption-large text-body"
                       id="verticalTitle"
@@ -65,7 +75,7 @@
                     >
                       {{ 'products.facets.filter_by_label' | t }}
                     </h2>
-                  {%- endunless -%}
+                  {%- endif -%}
                   <facet-remove class="active-facets__button-wrapper">
                     <a href="{{ results_url }}" class="active-facets__button-remove underlined-link">
                       <span>{{ 'products.facets.clear_all' | t }}</span>
@@ -129,7 +139,9 @@
                     id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
                     class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
                     data-index="{{ forloop.index }}"
-                    {% if filter_type == 'vertical' and forloop.index == 1 %}
+                    {% if filter_type == 'vertical' and accordions_open_all %}
+                      open
+                    {% elsif filter_type == 'vertical' and forloop.index == 1 %}
                       open
                     {% endif %}
                   >
@@ -300,7 +312,9 @@
                     id="Details-{{ filter.param_name | escape }}-{{ section.id }}"
                     class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
                     data-index="{{ forloop.index }}"
-                    {% if filter_type == 'vertical' and forloop.index == 1 %}
+                    {% if filter_type == 'vertical' and accordions_open_all %}
+                      open
+                    {% elsif filter_type == 'vertical' and forloop.index == 1 %}
                       open
                     {% endif %}
                   >
@@ -334,6 +348,9 @@
                   </details>
               {% endcase %}
             {%- endfor -%}
+            {%- if filter_type == 'vertical' and facets_layout == 'collection_grid' and enable_filtering -%}
+              <button type="submit" class="cpfg-apply-filters">{{ 'products.facets.apply_filters' | t }}</button>
+            {%- endif -%}
           </div>
           {% comment %} Pills after filtes on filter type horizontal {% endcomment %}
           {%- if filter_type == 'horizontal' -%}
@@ -443,7 +460,7 @@
     class="mobile-facets__wrapper{% if filter_type == 'horizontal' or filter_type == 'vertical' %} medium-hide large-up-hide{% endif %}"
     data-breakpoint="mobile"
   >
-    <details class="mobile-facets__disclosure disclosure-has-popup">
+    <details class="mobile-facets__disclosure disclosure-has-popup"{% if section_id %} id="MobileFacets-{{ section_id }}"{% endif %}>
       <summary class="mobile-facets__open-wrapper focus-offset">
         <span class="mobile-facets__open{% if filter_type == 'drawer' and enable_filtering == false %} medium-hide large-up-hide{% endif %}">
           <span class="svg-wrapper">
