@@ -2,7 +2,8 @@
   'use strict';
 
   function formatMoney(cents) {
-    return (cents / 100).toFixed(2);
+    var val = cents / 100;
+    return val % 1 === 0 ? String(val) : val.toFixed(2);
   }
 
   function initPriceSliders() {

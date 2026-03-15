@@ -65,8 +65,10 @@
   font-size: 16px;
   font-weight: 700;
   color: #000;
-  padding: 4px 0;
+  padding: 4px 0 12px;
   list-style: none;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 12px;
 }
 
 .cfg-filter-summary::-webkit-details-marker {
@@ -79,10 +81,10 @@
 }
 
 .cfg-filter-content {
-  padding: 12px 0 0;
+  padding: 0 0 16px;
 }
 
-/* Price — dual range slider (reference: thin grey track, black fill between thumbs, bullseye handles) */
+/* Price — dual range slider (reference: thin grey track, black fill, solid black dots on line) */
 .cfg-price-slider-wrap {
   position: relative;
   padding: 8px 0 20px;
@@ -90,7 +92,7 @@
 
 .cfg-price-slider-track {
   position: relative;
-  height: 28px;
+  height: 24px;
 }
 
 .cfg-price-slider-fill {
@@ -127,15 +129,14 @@
 
 .cfg-price-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #000;
-  box-shadow: inset 0 0 0 4px #fff;
   cursor: pointer;
   pointer-events: auto;
   border: none;
-  margin-top: -6px;
+  margin-top: -5px;
 }
 
 .cfg-price-slider::-moz-range-track {
@@ -145,11 +146,10 @@
 }
 
 .cfg-price-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #000;
-  box-shadow: inset 0 0 0 4px #fff;
   cursor: pointer;
   pointer-events: auto;
   border: none;
@@ -182,6 +182,7 @@
   cursor: pointer;
   width: 100%;
   aspect-ratio: 1;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cfg-swatch input {
@@ -250,17 +251,16 @@
   border: none;
   color: #374151;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s;
-}
-
-.cfg-pill:hover:not(:has(input:disabled)) {
-  background: #ddd;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .cfg-pill input {
   position: absolute;
   opacity: 0;
-  pointer-events: none;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
 }
 
 .cfg-filter-value--active .cfg-pill,
@@ -278,14 +278,14 @@
 .cfg-apply-btn {
   width: 100%;
   margin-top: 24px;
-  padding: 12px 24px;
+  padding: 16px 24px;
   font-size: 14px;
   font-weight: 600;
   font-family: inherit;
   background: #000;
   color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 40px;
   cursor: pointer;
   transition: background 0.15s;
 }
@@ -642,6 +642,6 @@
   }
 
   .cfg-filter-values.cfg-filter--swatch {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(7, 1fr);
   }
 }
