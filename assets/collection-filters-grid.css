@@ -82,7 +82,7 @@
   padding: 12px 0 0;
 }
 
-/* Price — dual range slider */
+/* Price — dual range slider (reference: thin grey track, solid black circular handles) */
 .cfg-price-slider-wrap {
   position: relative;
   padding: 8px 0 20px;
@@ -90,51 +90,54 @@
 
 .cfg-price-slider-track {
   position: relative;
-  height: 24px;
+  height: 28px;
 }
 
 .cfg-price-slider {
   position: absolute;
   width: 100%;
-  height: 6px;
+  height: 4px;
   margin: 0;
   padding: 0;
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
   pointer-events: none;
+  top: 12px;
+}
+
+.cfg-price-slider::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #e5e5e5;
+  border-radius: 2px;
 }
 
 .cfg-price-slider::-webkit-slider-thumb {
   -webkit-appearance: none;
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #000;
   cursor: pointer;
   pointer-events: auto;
   border: none;
+  margin-top: -5px;
+}
+
+.cfg-price-slider::-moz-range-track {
+  height: 4px;
+  background: #e5e5e5;
+  border-radius: 2px;
 }
 
 .cfg-price-slider::-moz-range-thumb {
-  width: 18px;
-  height: 18px;
+  width: 14px;
+  height: 14px;
   border-radius: 50%;
   background: #000;
   cursor: pointer;
   pointer-events: auto;
   border: none;
-}
-
-.cfg-price-slider-track::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 9px;
-  height: 6px;
-  background: #e5e5e5;
-  border-radius: 3px;
 }
 
 .cfg-price-slider-values {
@@ -180,7 +183,7 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  border: 2px solid #e5e5e5;
+  border: 1px solid rgba(0, 0, 0, 0.08);
   background: #e0e0e0;
   flex-shrink: 0;
 }
@@ -202,8 +205,8 @@
 
 .cfg-filter-value--active .cfg-swatch-circle,
 .cfg-swatch:has(input:checked) .cfg-swatch-circle {
-  border-color: #000;
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px #000;
+  border-color: transparent;
+  box-shadow: none;
 }
 
 .cfg-filter-value--disabled .cfg-swatch {
@@ -229,10 +232,10 @@
   font-size: 14px;
   font-weight: 400;
   background: #e8e8e8;
-  border: 1px solid #ddd;
-  color: #000;
+  border: none;
+  color: #374151;
   cursor: pointer;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: background 0.15s, color 0.15s;
 }
 
 .cfg-pill:hover:not(:has(input:disabled)) {
@@ -249,7 +252,6 @@
 .cfg-pill:has(input:checked) {
   background: #000;
   color: #fff;
-  border-color: #000;
 }
 
 .cfg-filter-value--disabled .cfg-pill {
@@ -323,19 +325,25 @@
 
 .cfg-sort label {
   font-size: 14px;
-  color: #333;
+  color: #9ca3af;
+  font-weight: 400;
 }
 
 .cfg-sort select {
   font-size: 14px;
-  font-weight: 500;
-  padding: 8px 32px 8px 12px;
-  border: 1px solid #d1d5db;
+  font-weight: 600;
+  padding: 8px 28px 8px 12px;
+  border: none;
   border-radius: 6px;
-  background: #fff;
+  background: transparent;
   cursor: pointer;
   font-family: inherit;
   color: #000;
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='%23000' d='M1 1l4 4 4-4'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
 }
 
 /* Product grid — 3 columns, light grey cards with shadow */

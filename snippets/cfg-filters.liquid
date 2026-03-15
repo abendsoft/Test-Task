@@ -68,10 +68,35 @@
                     {%- endif -%}
                     <li class="cfg-filter-value{% if value.active %} cfg-filter-value--active{% endif %}{% if disabled %} cfg-filter-value--disabled{% endif %}">
                       {%- if use_swatches -%}
+                        {%- assign swatch_style = '' -%}
+                        {%- if value.swatch and value.swatch.color -%}
+                          {%- assign swatch_style = 'background-color:' | append: value.swatch.color -%}
+                        {%- elsif value.swatch and value.swatch.image -%}
+                          {%- assign swatch_style = 'background-image:url(' | append: value.swatch.image | image_url: width: 40 | append: ');background-size:cover;' -%}
+                        {%- else -%}
+                          {%- assign lbl = value.label | downcase | strip -%}
+                          {%- if lbl == 'green' -%}{%- assign swatch_style = 'background-color:#22c55e' -%}
+                          {%- elsif lbl == 'red' -%}{%- assign swatch_style = 'background-color:#ef4444' -%}
+                          {%- elsif lbl == 'yellow' -%}{%- assign swatch_style = 'background-color:#eab308' -%}
+                          {%- elsif lbl == 'orange' -%}{%- assign swatch_style = 'background-color:#f97316' -%}
+                          {%- elsif lbl == 'blue' -%}{%- assign swatch_style = 'background-color:#3b82f6' -%}
+                          {%- elsif lbl == 'cyan' or lbl == 'sky blue' -%}{%- assign swatch_style = 'background-color:#06b6d4' -%}
+                          {%- elsif lbl == 'purple' -%}{%- assign swatch_style = 'background-color:#a855f7' -%}
+                          {%- elsif lbl == 'pink' -%}{%- assign swatch_style = 'background-color:#ec4899' -%}
+                          {%- elsif lbl == 'white' -%}{%- assign swatch_style = 'background-color:#ffffff;border:1px solid #e5e5e5' -%}
+                          {%- elsif lbl == 'black' -%}{%- assign swatch_style = 'background-color:#000000' -%}
+                          {%- elsif lbl == 'dawn' -%}{%- assign swatch_style = 'background-color:#fef3c7' -%}
+                          {%- elsif lbl == 'electric' -%}{%- assign swatch_style = 'background-color:#facc15' -%}
+                          {%- elsif lbl == 'ice' -%}{%- assign swatch_style = 'background-color:#e0f2fe' -%}
+                          {%- elsif lbl == 'powder' -%}{%- assign swatch_style = 'background-color:#fce7f3' -%}
+                          {%- elsif lbl == 'sunset' -%}{%- assign swatch_style = 'background-color:#fb923c' -%}
+                          {%- else -%}{%- assign swatch_style = 'background-color:#e0e0e0' -%}
+                          {%- endif -%}
+                        {%- endif -%}
                         <label class="cfg-swatch">
                           <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"
                             {% if value.active %}checked{% endif %}{% if disabled %} disabled{% endif %}>
-                          <span class="cfg-swatch-circle" style="{% if value.swatch and value.swatch.color %}background-color:{{ value.swatch.color }};{% elsif value.swatch and value.swatch.image %}background-image:url({{ value.swatch.image | image_url: width: 40 }}); background-size:cover;{% else %}background-color:#e0e0e0;{% endif %}"></span>
+                          <span class="cfg-swatch-circle" style="{{ swatch_style }}"></span>
                           <span class="cfg-swatch-check">
                             <svg width="12" height="10" viewBox="0 0 12 10" fill="none"><path d="M1 5l3 3 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
                           </span>
