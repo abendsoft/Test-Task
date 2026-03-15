@@ -118,6 +118,9 @@
       </div>
     {%- endfor -%}
 
-    <button type="submit" class="cfg-apply-btn">Apply Filter</button>
+    <div class="cfg-filter-actions">
+      <a href="{{ form_action }}" class="cfg-clear-filters">Clear filters</a>
+      <button type="submit" class="cfg-apply-btn">Apply Filter</button>
+    </div>
   </div>
 </form>
