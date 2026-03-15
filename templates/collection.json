@@ -44,7 +44,7 @@
       "name": "Collection filters grid",
       "settings": {
         "heading": "",
-        "products_per_page": 8
+        "products_per_page": 9
       }
     }
   },
