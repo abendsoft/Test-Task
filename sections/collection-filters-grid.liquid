@@ -6,6 +6,9 @@
 {{ 'collection-filters-grid.css' | asset_url | stylesheet_tag }}
 <script src="{{ 'collection-filters-grid.js' | asset_url }}" defer></script>
 
+{%- if collection == blank -%}
+  <div style="padding: 2rem; text-align: center; color: #6b7280;">Add this section to a collection page to display products and filters.</div>
+{%- else -%}
 {%- paginate collection.products by section.settings.products_per_page -%}
   {%- assign heading_text = section.settings.heading | default: collection.title -%}
   {%- assign start_item = paginate.current_offset | plus: 1 -%}
@@ -112,12 +115,12 @@
     })();
   </script>
 {%- endpaginate -%}
+{%- endif -%}
 
 {% schema %}
 {
   "name": "Collection filters grid",
   "class": "section",
-  "templates": ["collection"],
   "settings": [
     {
       "type": "text",
